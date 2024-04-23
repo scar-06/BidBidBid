@@ -12,7 +12,8 @@ public interface BidService {
 
     ResponseEntity<Bids> getBidById(Long bidId);
 
-    ResponseEntity<String> addBid (BidsDTO bidDto);
+
+    ResponseEntity<String> addBidToCollection(BidsDTO bidDto);
 
     ResponseEntity<?> updateBidById(Long bidId, BidsDTO bidsDTO);
 

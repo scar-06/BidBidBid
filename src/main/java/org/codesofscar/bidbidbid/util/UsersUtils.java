@@ -30,7 +30,7 @@ public class UsersUtils {
                 if (lineOne) {
                     Users userInfo = Users.builder()
                             .id(Long.valueOf(users[0]))
-                            .name(users[1])
+                            .username(users[1])
                             .email(users[2])
                                     .build();
                     userRepository.save(userInfo);

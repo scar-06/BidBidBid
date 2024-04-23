@@ -5,7 +5,6 @@ import org.codesofscar.bidbidbid.dto.BidsDTO;
 import org.codesofscar.bidbidbid.exception.ResourceNotFoundException;
 import org.codesofscar.bidbidbid.model.BidCollections;
 import org.codesofscar.bidbidbid.model.Bids;
-import org.codesofscar.bidbidbid.model.Users;
 import org.codesofscar.bidbidbid.repository.BidCollectionsRepository;
 import org.codesofscar.bidbidbid.repository.BidsRepository;
 import org.codesofscar.bidbidbid.repository.UserRepository;
@@ -15,11 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BidServiceImpl implements BidService {
+
+    private final List<Bids> bidsToCollection = new ArrayList<>();
 
     private final BidsRepository bidsRepository;
     private final BidCollectionsRepository collectionsRepository;
@@ -46,19 +48,26 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
-    public ResponseEntity<String> addBid(BidsDTO bidDto) {
+    public ResponseEntity<String> addBidToCollection(BidsDTO bidDto) {
 //        NEED TO ADD BID TO USER HERE
+
         Bids bid = new ObjectMapper().convertValue(bidDto, Bids.class);
         Optional<Bids> bid1 = bidsRepository.findById(bid.getId());
         if(bid1.isPresent() ){
             return ResponseEntity.ok("Bid with ID " + bid.getId()+ " has already been added");
         }
 
+        bidsToCollection.add(bid);
+
         BidCollections collection = collectionsRepository.findById(bid.getId()).
                 orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 
+        collection.setBidsInCollection(bidsToCollection);
+
 //        NEED TO SAVE ABOVE "bid" IN ITS OWN "collection"
+
         bidsRepository.save(bid);
+        collectionsRepository.save(collection);
 
 
         return ResponseEntity.ok("Bid with ID " + bid.getId() + " added successfully");
