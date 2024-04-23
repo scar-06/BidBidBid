@@ -5,6 +5,7 @@ import org.codesofscar.bidbidbid.dto.BidsDTO;
 import org.codesofscar.bidbidbid.exception.ResourceNotFoundException;
 import org.codesofscar.bidbidbid.model.BidCollections;
 import org.codesofscar.bidbidbid.model.Bids;
+import org.codesofscar.bidbidbid.model.Users;
 import org.codesofscar.bidbidbid.repository.BidCollectionsRepository;
 import org.codesofscar.bidbidbid.repository.BidsRepository;
 import org.codesofscar.bidbidbid.repository.UserRepository;
@@ -46,7 +47,7 @@ public class BidServiceImpl implements BidService {
 
     @Override
     public ResponseEntity<String> addBid(BidsDTO bidDto) {
-
+//        NEED TO ADD BID TO USER HERE
         Bids bid = new ObjectMapper().convertValue(bidDto, Bids.class);
         Optional<Bids> bid1 = bidsRepository.findById(bid.getId());
         if(bid1.isPresent() ){
@@ -56,8 +57,9 @@ public class BidServiceImpl implements BidService {
         BidCollections collection = collectionsRepository.findById(bid.getId()).
                 orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 
-//        WORK RIGHT HERE!!
+//        NEED TO SAVE ABOVE "bid" IN ITS OWN "collection"
         bidsRepository.save(bid);
+
 
         return ResponseEntity.ok("Bid with ID " + bid.getId() + " added successfully");
     }
