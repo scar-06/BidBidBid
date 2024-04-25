@@ -15,8 +15,6 @@ import org.codesofscar.bidbidbid.service.BidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -54,9 +52,7 @@ public class BidServiceImpl implements BidService {
 
     @Override
     public ResponseEntity<String> addBidToCollection(BidsDTO bidDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Users user = userRepository.findByUsername(username).orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
+        Users user = userRepository.findById(bidDto.getUser().getId()).orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
 
         if (user == null) {
             throw new ResourceNotFoundException("Admin must be Logged In to Continue");
@@ -86,10 +82,20 @@ public class BidServiceImpl implements BidService {
         return ResponseEntity.ok("Bid with ID " + bid.getId() + " added successfully");
     }
 
-    public ResponseEntity<String> acceptBid (Long bidId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Users user = userRepository.findByUsername(username).orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
+    @Override
+    public ResponseEntity<String> deleteBidById(Long bidId) {
+        Optional<Bids> bid = bidsRepository.findById(bidId);
+        if(!bid.isPresent()){
+            return new ResponseEntity<>("No such item found", HttpStatus.BAD_REQUEST);
+        }
+        bidsRepository.delete(bid.get());
+        return ResponseEntity.ok( "Bid with ID " + bidId + " is deleted successfully");
+    }
+
+    @Override
+    public ResponseEntity<String> acceptBid(Long bidId) {
+
+        Users user = userRepository.findById(bidId).orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
 
         if (user == null) {
             throw new ResourceNotFoundException("Admin must be Logged In to Continue");
@@ -107,6 +113,8 @@ public class BidServiceImpl implements BidService {
             throw new ResourceNotFoundException("Bid already accepted");
         }
 
+        bid.get().setStatus(BidStatus.ACCEPTED);
+
         BidCollections collection = collectionsRepository.findById(bid.get().getCollectionId()).
                 orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 
@@ -117,22 +125,27 @@ public class BidServiceImpl implements BidService {
             }
         }
 
-        bid.get().setStatus(BidStatus.ACCEPTED);
         return new ResponseEntity<>("Bid with ID " +bid.get().getId()+" Accepted", HttpStatus.OK);
-
-
-
 
 
     }
 
     @Override
     public ResponseEntity<?> updateBidById(Long bidId, BidsDTO bidsDTO) {
+
+        Users user = userRepository.findById(bidId).orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
+        if (user == null) {
+            throw new ResourceNotFoundException("Admin must be Logged In to Continue");
+        }
+        if (!user.getUserRole().equals(Roles.ADMIN)) {
+            throw new ResourceNotFoundException("You are not allowed to Add Bid To Collection");
+        }
+
         Optional<Bids> bid = bidsRepository.findById(bidId);
         if(!bid.isPresent()){
             return new ResponseEntity<>("Bid with ID " + bidId + " not found", HttpStatus.BAD_REQUEST);
         }
-        bid.get().setCollection(bidsDTO.getCollection());
+        bid.get().setCollectionId(bidsDTO.getCollectionsId());
         bid.get().setPrice(bidsDTO.getPrice());
         bid.get().setUser(bidsDTO.getUser());
         bid.get().setStatus(bidsDTO.getStatus());
@@ -142,15 +155,7 @@ public class BidServiceImpl implements BidService {
         return ResponseEntity.ok("Bid updated successfully");
     }
 
-    @Override
-    public ResponseEntity<String> deleteBidById(Long bidId) {
-        Optional<Bids> bid = bidsRepository.findById(bidId);
-        if(!bid.isPresent()){
-            return new ResponseEntity<>("No such item found", HttpStatus.BAD_REQUEST);
-        }
-        bidsRepository.delete(bid.get());
-        return ResponseEntity.ok( "Bid with ID " + bidId + " is deleted successfully");
-    }
+
 
 
 

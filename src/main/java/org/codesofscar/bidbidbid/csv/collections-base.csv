@@ -1,10 +1,13 @@
-id,collection_name,descriptions,stocks,bids_in_collection
-1,Collection 1,antique,500000.00,['bid 1','bid 2','bid 3']
-2,Collection 2,souvenir,500000.00,['bid 1','bid 2','bid 3']
-3,Collection 3,groceries,500000.00,['bid 1','bid 2','bid 3']
-4,Collection 4,collectibles,500000,['bid 1','bid 2','bid 3']
-5,Collection 5,cutlery,500000,['bid 1','bid 2','bid 3']
-6,Collection 6,woodwork,500000,['bid 1','bid 2','bid 3']
+id,collection_name,descriptions,stocks,collections_id,price,user_id,status
+1,Collection 1,antique,500000.00,1,500000,1,PENDING
+1,Collection 1,antique,500000.00,1,500000,2,PENDING
+1,Collection 1,antique,500000.00,1,500000,3,PENDING
+2,Collection 2,tech,500000.00,2,,500000,1,PENDING
+2,Collection 2,tech,500000.00,2,500000,2,PENDING
+2,Collection 2,tech,500000.00,2,500000,3,PENDING
+3,Collection 1,antique,500000.00,3,500000,1,PENDING
+3,Collection 1,antique,500000.00,3,500000,2,PENDING
+3,Collection 1,antique,500000.00,3,500000,3,PENDING
 7,Collection 7,tech,500000,['bid 1','bid 2','bid 3']
 8,Collection 8,archaeological findings,500000,['bid 1','bid 2','bid 3']
 9,Collection 9,jewellery,500000,['bid 1','bid 2','bid 3']

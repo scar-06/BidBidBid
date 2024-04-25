@@ -1,6 +1,7 @@
 package org.codesofscar.bidbidbid.util;
 
 import jakarta.annotation.PostConstruct;
+import org.codesofscar.bidbidbid.enums.Roles;
 import org.codesofscar.bidbidbid.model.Bids;
 import org.codesofscar.bidbidbid.model.Users;
 import org.codesofscar.bidbidbid.repository.UserRepository;
@@ -35,7 +36,7 @@ public class UsersUtils {
                             .email(users[2])
                             .password(users[3])
                             .bidId(users[4])
-
+                            .userRole(Roles.valueOf(users[5]))
                                     .build();
                     userRepository.save(userInfo);
                 }

@@ -15,6 +15,8 @@ public interface BidService {
 
     ResponseEntity<String> addBidToCollection(BidsDTO bidDto);
 
+    ResponseEntity<String> acceptBid(Long bidId);
+
     ResponseEntity<?> updateBidById(Long bidId, BidsDTO bidsDTO);
 
     ResponseEntity<String> deleteBidById(Long bidId);

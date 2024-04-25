@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,12 +14,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "collections")
 public class BidCollections {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "collections_id")
     @JsonIgnore
     private Long id;
@@ -38,6 +39,7 @@ public class BidCollections {
 
     @OneToMany
     @Column
+    @JsonIgnore
     private List<Bids> bidsInCollection;
 
 }
