@@ -23,13 +23,21 @@ public class Bids {
     private Long id;
 
     @ManyToOne
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "bids_id"),
+            inverseJoinColumns = @JoinColumn(name = "collection_id")
+    )
     private BidCollections collection;
 
     @Column
     private BigDecimal price;
 
+    @JsonIgnore
+    private Long collectionId;
+
     @OneToOne
     private Users user;
 
+    @Column
     private BidStatus status;
 }

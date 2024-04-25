@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserDetailsService {
     public Users saveUser(UserDto userDto) {
         Users user = new ObjectMapper().convertValue(userDto, Users.class);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setBid(userDto.getBid());
+        user.setBidId(userDto.getBidId());
         user.setEmail(userDto.getEmail());
         return userRepository.save(user);
     }

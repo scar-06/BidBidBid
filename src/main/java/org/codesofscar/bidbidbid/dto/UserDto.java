@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.codesofscar.bidbidbid.model.Bids;
+import org.codesofscar.bidbidbid.enums.Roles;
 
 @Data
 @Builder
@@ -14,7 +14,8 @@ public class UserDto {
     private Long id;
     private String username;
     private String email;
-    private Bids bid;
+    private String bidId;
     private String password;
+    private Roles userRole;
 
 }

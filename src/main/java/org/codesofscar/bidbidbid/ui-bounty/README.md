@@ -24,7 +24,8 @@ bids {
 user {
     id,
     name,
-    email
+    email,
+    
 }
 ```
 

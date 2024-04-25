@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.codesofscar.bidbidbid.enums.Roles;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -38,11 +39,14 @@ public class Users implements UserDetails {
     @Column(unique = true)
     private String email;
 
-    @OneToOne
-    private Bids bid;
+    @JsonIgnore
+    private String bidId;
 
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$", message = "Password must be at least 8 characters and include one uppercase letter, one lowercase letter, one digit, and one special character")
     private String password;
+
+    @JsonIgnore
+    private Roles userRole;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -70,4 +74,10 @@ public class Users implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    /* POSSIBLE CSV CONFIG
+id,name,email,password,bid_id
+1,John Doe,johndoe@example.com,password123,"1:1:150.00:1:ACCEPTED,2:1:200.00:1:PENDING"
+2,Jane Smith,janesmith@example.com,password456,"3:2:180.00:2:REJECTED,4:2:220.00:2:ACCEPTED"
+*/
 }

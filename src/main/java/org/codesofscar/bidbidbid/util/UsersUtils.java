@@ -1,6 +1,7 @@
 package org.codesofscar.bidbidbid.util;
 
 import jakarta.annotation.PostConstruct;
+import org.codesofscar.bidbidbid.model.Bids;
 import org.codesofscar.bidbidbid.model.Users;
 import org.codesofscar.bidbidbid.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class UsersUtils {
                             .id(Long.valueOf(users[0]))
                             .username(users[1])
                             .email(users[2])
+                            .password(users[3])
+                            .bidId(users[4])
+
                                     .build();
                     userRepository.save(userInfo);
                 }
