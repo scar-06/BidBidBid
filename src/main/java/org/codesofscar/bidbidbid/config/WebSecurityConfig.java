@@ -73,7 +73,7 @@ public class WebSecurityConfig {
                                         "/api/v1/auth/sign-up",
                                         "/api/v1/auth/login").permitAll()
                                 .requestMatchers(
-                                        "/api/v1/dashboard").permitAll())
+                                        "/api/v1/auth/dashboard").permitAll())
                 .sessionManagement(sessionManagement->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
