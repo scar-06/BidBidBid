@@ -40,7 +40,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> logInUser(@RequestBody UserDto userDto) {
         UserDetails user = userService.loadUserByUsername(userDto.getUsername());
-        if(passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
+//        if(passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
+//            String jwtToken = utils.createJwt.apply(user);
+//            return new ResponseEntity<>(jwtToken, HttpStatus.CREATED);
+//        }
+
+        if(userDto.getPassword().equals(user.getPassword())) {
             String jwtToken = utils.createJwt.apply(user);
             return new ResponseEntity<>(jwtToken, HttpStatus.CREATED);
         }

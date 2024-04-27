@@ -70,8 +70,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(httpRequests->
                         httpRequests
                                 .requestMatchers(
-                                        "/api/v1/sign-up",
-                                        "/api/v1/login").permitAll()
+                                        "/api/v1/auth/sign-up",
+                                        "/api/v1/auth/login").permitAll()
                                 .requestMatchers(
                                         "/api/v1/dashboard").permitAll())
                 .sessionManagement(sessionManagement->
