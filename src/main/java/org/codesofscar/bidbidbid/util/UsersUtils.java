@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Component
 public class UsersUtils {
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     public UsersUtils(UserRepository userRepository) {
@@ -31,7 +31,7 @@ public class UsersUtils {
                 String[] users = line.split(",");
                 if (lineOne) {
                     Users userInfo = Users.builder()
-                            .id(Long.valueOf(users[0]))
+                            .id(Long.valueOf((users[0])))
                             .username(users[1])
                             .email(users[2])
                             .password(users[3])

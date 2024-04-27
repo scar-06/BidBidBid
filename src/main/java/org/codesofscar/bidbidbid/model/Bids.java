@@ -19,30 +19,30 @@ import java.math.BigDecimal;
 public class Bids {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "bids_id")
     @JsonIgnore
     private Long id;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinTable(
-            joinColumns = @JoinColumn(name = "bids_id"),
-            inverseJoinColumns = @JoinColumn(name = "collection_id")
-    )
-    private BidCollections collection;
-
-    @Column
-    private BigDecimal price;
+//    @ManyToOne
+//    @JsonIgnore
+//    @JoinTable(
+//            joinColumns = @JoinColumn(name = "bids_id"),
+//            inverseJoinColumns = @JoinColumn(name = "collection_id")
+//    )
+//    private BidCollections collection;
 
     @JsonIgnore
     private Long collectionId;
 
+    @Column
+    private BigDecimal price;
+
+
+//    @OneToOne
+//    @JsonIgnore
+//    private Users user;
     @JsonIgnore
     private Long userId;
-
-    @OneToOne
-    @JsonIgnore
-    private Users user;
 
     @Column
     private BidStatus status;

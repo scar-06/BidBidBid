@@ -19,5 +19,6 @@ public class BidsDTO {
     private Long CollectionsId;
     private BigDecimal price;
     private Users user;
+    private Long userId;
     private BidStatus status;
 }

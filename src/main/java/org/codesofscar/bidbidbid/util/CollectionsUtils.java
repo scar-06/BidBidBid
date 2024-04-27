@@ -17,36 +17,36 @@ import java.util.List;
 @Component
 public class CollectionsUtils {
 
-    private final BidCollectionsRepository collectionsRepository;
-
-
-    @Autowired
-    public CollectionsUtils(BidCollectionsRepository collectionsRepository) {
-        this.collectionsRepository = collectionsRepository;
-    }
-
-    @PostConstruct
-    public void readBidsCSV(){
-
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/java/org/codesofscar/bidbidbid/csv/bids-base.csv"))) {
-            String line;
-            boolean lineOne = false;
-            while ((line=bufferedReader.readLine())!=null){
-                String[] collections = line.split(",");
-                if (lineOne) {
-                    BidCollections collectionInfo = BidCollections.builder()
-                            .id(Long.valueOf(collections[0]))
-                            .collectionName(collections[1])
-                            .descriptions(collections[2])
-                            .stocks(Integer.valueOf(collections[3]))
-                            .build();
-                    collectionsRepository.save(collectionInfo);
-                }
-                lineOne = true;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
+//    private final BidCollectionsRepository collectionsRepository;
+//
+//
+//    @Autowired
+//    public CollectionsUtils(BidCollectionsRepository collectionsRepository) {
+//        this.collectionsRepository = collectionsRepository;
+//    }
+//
+//    @PostConstruct
+//    public void readBidsCSV(){
+//
+//        try(BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/java/org/codesofscar/bidbidbid/csv/collections-base.csv"))) {
+//            String line;
+//            boolean lineOne = false;
+//            while ((line=bufferedReader.readLine())!=null){
+//                String[] collections = line.split(",");
+//                if (lineOne) {
+//                    BidCollections collectionInfo = BidCollections.builder()
+//                            .id(Long.valueOf(collections[0]))
+//                            .collectionName(collections[1])
+//                            .descriptions(collections[2])
+//                            .stocks(Integer.valueOf(collections[3]))
+//                            .build();
+//                    collectionsRepository.save(collectionInfo);
+//                }
+//                lineOne = true;
+//            }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
 }

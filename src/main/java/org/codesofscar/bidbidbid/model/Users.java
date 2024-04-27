@@ -26,7 +26,6 @@ public class Users implements UserDetails {
 
     @Id
     @Column(name = "user_id")
-    @JsonIgnore
     private Long id;
 
     @Size(min = 3, message = "First and Last Name")

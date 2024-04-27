@@ -147,7 +147,7 @@ public class BidServiceImpl implements BidService {
         }
         bid.get().setCollectionId(bidsDTO.getCollectionsId());
         bid.get().setPrice(bidsDTO.getPrice());
-        bid.get().setUser(bidsDTO.getUser());
+        bid.get().setUserId(bidsDTO.getUserId());
         bid.get().setStatus(bidsDTO.getStatus());
 
         bidsRepository.save(bid.get());

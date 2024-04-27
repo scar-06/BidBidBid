@@ -24,8 +24,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private UserServiceImpl userService;
 
-    private UserRepository userRepository;
-
 
     public JwtAuthenticationFilter(JwtUtils utils, @Lazy UserServiceImpl userService) {
         this.utils = utils;

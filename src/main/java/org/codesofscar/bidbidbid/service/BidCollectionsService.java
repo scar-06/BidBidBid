@@ -8,16 +8,16 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface BidCollectionsService {
-    List<BidCollections> getAllCollections ();
-
-    ResponseEntity<BidCollections> getCollectionById (Long collectionsId);
-
-    List<Bids> getAllBidsInCollections (Long id);
-
-    ResponseEntity<String> addCollection (BidCollectionsDTO collectionsDTO);
-
-
-    ResponseEntity<?> updateCollectionById(Long collectionId, BidCollectionsDTO collectionsDTO);
-
-    ResponseEntity<String> deleteCollectionById(Long collectionId);
+//    List<BidCollections> getAllCollections ();
+//
+//    ResponseEntity<BidCollections> getCollectionById (Long collectionsId);
+//
+//    List<Bids> getAllBidsInCollections (Long id);
+//
+//    ResponseEntity<String> addCollection (BidCollectionsDTO collectionsDTO);
+//
+//
+//    ResponseEntity<?> updateCollectionById(Long collectionId, BidCollectionsDTO collectionsDTO);
+//
+//    ResponseEntity<String> deleteCollectionById(Long collectionId);
 }
