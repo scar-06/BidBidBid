@@ -45,8 +45,7 @@ public class BidServiceImpl implements BidService {
 
     @Override
     public ResponseEntity<Bids> getBidById(Long bidId) {
-        return new ResponseEntity<>(bidsRepository.
-                findById(bidId).
+        return new ResponseEntity<>(bidsRepository.findById(bidId).
                 orElseThrow(() -> new ResourceNotFoundException("Bid not found")), HttpStatus.OK);
     }
 

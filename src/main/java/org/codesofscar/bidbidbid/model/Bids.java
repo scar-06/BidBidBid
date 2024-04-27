@@ -31,7 +31,7 @@ public class Bids {
 //    )
 //    private BidCollections collection;
 
-    @JsonIgnore
+
     private Long collectionId;
 
     @Column
@@ -41,7 +41,7 @@ public class Bids {
 //    @OneToOne
 //    @JsonIgnore
 //    private Users user;
-    @JsonIgnore
+
     private Long userId;
 
     @Column
