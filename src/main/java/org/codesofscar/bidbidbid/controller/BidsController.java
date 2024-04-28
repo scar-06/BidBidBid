@@ -1,13 +1,11 @@
 package org.codesofscar.bidbidbid.controller;
 
+import org.codesofscar.bidbidbid.dto.BidsDTO;
 import org.codesofscar.bidbidbid.model.Bids;
 import org.codesofscar.bidbidbid.serviceImpl.BidServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,12 +20,22 @@ public class BidsController {
     }
 
     @GetMapping("/allbids")
-    List<Bids> getAllBids () {
+    List<Bids> allBids () {
         return bidService.getAllBids();
     }
 
     @GetMapping("/findbid/{bidId}")
-    public ResponseEntity<Bids> getBidById(@PathVariable Long bidId) {
+    public ResponseEntity<Bids> getBid(@PathVariable Long bidId) {
         return bidService.getBidById(bidId);
+    }
+
+    @DeleteMapping("/deletebid/{bidId}")
+    public ResponseEntity<String> deleteBid(@PathVariable Long bidId) {
+        return bidService.deleteBidById(bidId);
+    }
+
+    @PutMapping("/updatebid/{bidId}")
+    public ResponseEntity<?> updateBid(@PathVariable Long bidId,@RequestBody BidsDTO bidsDTO) {
+        return ResponseEntity.ok(bidService.updateBidById(bidId, bidsDTO));
     }
 }

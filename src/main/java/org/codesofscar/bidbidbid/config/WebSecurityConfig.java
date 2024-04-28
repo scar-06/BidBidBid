@@ -71,7 +71,7 @@ public class WebSecurityConfig {
                         httpRequests
                                 .requestMatchers(
                                         "/api/v1/auth/sign-up",
-                                        "/api/v1/auth/login", "/api/v1/bids/**").permitAll()
+                                        "/api/v1/auth/login", "/api/v1/bids/**", "/api/v1/collections/**").permitAll()
                                 .requestMatchers(
                                         "/api/v1/auth/dashboard").permitAll())
                 .sessionManagement(sessionManagement->

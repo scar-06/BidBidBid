@@ -31,7 +31,7 @@ public class Bids {
 //    )
 //    private BidCollections collection;
 
-
+    @Column(name = "collection_id")
     private Long collectionId;
 
     @Column

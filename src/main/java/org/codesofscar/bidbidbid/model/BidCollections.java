@@ -38,8 +38,11 @@ public class BidCollections {
     private BigDecimal price;
 
     @OneToMany
-    @Column
-    @JsonIgnore
     private List<Bids> bidsInCollection;
+
+
+
+
+
 
 }

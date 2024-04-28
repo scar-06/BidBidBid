@@ -53,7 +53,7 @@ public class BidsUtils {
 
                     Bids bidsInfo = Bids.builder()
                             .id(Long.valueOf(bids[0]))
-                            .collectionId(Long.valueOf(bids[0]))
+                            .collectionId(Long.valueOf(bids[1]))
                             .price(new BigDecimal(bids[2]))
                             .userId(Long.valueOf(bids[3]))
                             .status(BidStatus.valueOf(bids[4]))

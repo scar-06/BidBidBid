@@ -1,10 +1,10 @@
-id,collection_name,descriptions,stocks,price
-1,Collection 1,antique,500000.00,500000
-2,Collection 1,antique,500000.00,500000
-3,Collection 1,antique,500000.00,500000
-4,Collection 2,tech,500000.00,500000
-5,Collection 2,tech,500000.00,500000
-6,Collection 2,tech,500000.00,500000
-7,Collection 1,antique,500000.00,500000
-8,Collection 1,antique,500000.00,500000
-9,Collection 1,antique,500000.00,500000
+id,collection_name,descriptions,stocks,price,bids_in_collection
+1,Collection 1,antique,500000,500000
+2,Collection 2,furniture,500000,500000
+3,Collection 3,art,500000,500000
+4,Collection 4,sculpture,500000,500000
+5,Collection 5,jewellery,500000,500000
+6,Collection 6,boats,500000,500000
+7,Collection 7,firewood,500000,500000
+8,Collection 8,books,500000,500000
+9,Collection 9,utilities,500000,500000

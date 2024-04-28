@@ -144,10 +144,10 @@ public class BidServiceImpl implements BidService {
         if(!bid.isPresent()){
             return new ResponseEntity<>("Bid with ID " + bidId + " not found", HttpStatus.BAD_REQUEST);
         }
-        bid.get().setCollectionId(bidsDTO.getCollectionsId());
+//        bid.get().setCollectionId(bidsDTO.getCollectionsId());
         bid.get().setPrice(bidsDTO.getPrice());
-        bid.get().setUserId(bidsDTO.getUserId());
-        bid.get().setStatus(bidsDTO.getStatus());
+//        bid.get().setUserId(bidsDTO.getUserId());
+//        bid.get().setStatus(bidsDTO.getStatus());
 
         bidsRepository.save(bid.get());
 
