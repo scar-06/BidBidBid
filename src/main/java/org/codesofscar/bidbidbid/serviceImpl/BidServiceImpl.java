@@ -87,6 +87,18 @@ public class BidServiceImpl implements BidService {
         if(!bid.isPresent()){
             return new ResponseEntity<>("No such item found", HttpStatus.BAD_REQUEST);
         }
+
+        BidCollections collection = collectionsRepository.findById(bid.get().getCollectionId())
+                .orElseThrow(() -> new ResourceNotFoundException("Collection not found"));
+        List<Bids> bidListInCollection = collection.getBidsInCollection();
+
+        for (Bids collectionBid : bidListInCollection) {
+            if (collectionBid.getId().equals(bid.get().getId())) {
+                bidListInCollection.remove(collectionBid);
+            }
+        }
+
+
         bidsRepository.delete(bid.get());
         return ResponseEntity.ok( "Bid with ID " + bidId + " is deleted successfully");
     }

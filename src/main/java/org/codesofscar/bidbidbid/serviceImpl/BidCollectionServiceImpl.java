@@ -39,9 +39,8 @@ public class BidCollectionServiceImpl implements BidCollectionsService{
     }
 
     @Override
-    public ResponseEntity<BidCollections> getCollectionById(Long collectionsId) {
-        return new ResponseEntity<>(collectionsRepository.
-                findById(collectionsId).
+    public ResponseEntity<BidCollections> getCollectionById(Long collectionId) {
+        return new ResponseEntity<>(collectionsRepository.findById(collectionId).
                 orElseThrow(() -> new ResourceNotFoundException("Collection not found")), HttpStatus.OK);
     }
 

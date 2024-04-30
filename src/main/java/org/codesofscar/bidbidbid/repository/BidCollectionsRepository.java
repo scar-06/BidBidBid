@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface BidCollectionsRepository extends JpaRepository<BidCollections, Long> {
     List<BidCollections> findAllById (Long Id);
 
-    Optional<BidCollections> findById (Long Id);
+    Optional<BidCollections> findById (Long collectionId);
 }
