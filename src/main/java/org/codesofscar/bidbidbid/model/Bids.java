@@ -20,7 +20,6 @@ public class Bids {
 
     @Id
     @Column(name = "bids_id")
-    @JsonIgnore
     private Long id;
 
 //    @ManyToOne

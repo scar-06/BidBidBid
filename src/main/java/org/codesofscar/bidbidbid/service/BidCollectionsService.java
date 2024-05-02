@@ -10,9 +10,10 @@ import java.util.List;
 public interface BidCollectionsService {
     List<BidCollections> getAllCollections ();
 
-    ResponseEntity<BidCollections> getCollectionById (Long collectionsId);
+    BidCollections getCollectionById (Long collectionsId);
 
-    List<Bids> getAllBidsInCollections (Long id);
+
+    List<Bids> getAllBidsInCollection(Long collectionId);
 
     ResponseEntity<String> addCollection (BidCollectionsDTO collectionsDTO);
 

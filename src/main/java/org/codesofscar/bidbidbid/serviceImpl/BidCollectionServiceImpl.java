@@ -39,14 +39,24 @@ public class BidCollectionServiceImpl implements BidCollectionsService{
     }
 
     @Override
-    public ResponseEntity<BidCollections> getCollectionById(Long collectionId) {
-        return new ResponseEntity<>(collectionsRepository.findById(collectionId).
-                orElseThrow(() -> new ResourceNotFoundException("Collection not found")), HttpStatus.OK);
+    public BidCollections getCollectionById(Long collectionId) {
+        return collectionsRepository.findById(collectionId).
+                orElseThrow(() -> new ResourceNotFoundException("Collection not found"));
     }
 
     @Override
-    public List<Bids> getAllBidsInCollections(Long id) {
-        Optional<BidCollections> collectionOfBids = collectionsRepository.findById(id);
+    public ResponseEntity<String> deleteCollectionById(Long collectionId) {
+        Optional<BidCollections> collection = collectionsRepository.findById(collectionId);
+        if(!collection.isPresent()){
+            return new ResponseEntity<>("No such item found", HttpStatus.BAD_REQUEST);
+        }
+        collectionsRepository.delete(collection.get());
+        return ResponseEntity.ok(collection.get().getCollectionName() + " with ID " + collectionId + " is deleted successfully");
+    }
+
+    @Override
+    public List<Bids> getAllBidsInCollection(Long collectionId) {
+        Optional<BidCollections> collectionOfBids = collectionsRepository.findById(collectionId);
         return collectionOfBids.get().getBidsInCollection();
     }
 
@@ -96,14 +106,6 @@ public class BidCollectionServiceImpl implements BidCollectionsService{
         return ResponseEntity.ok("Collection updated successfully");
     }
 
-    @Override
-    public ResponseEntity<String> deleteCollectionById(Long collectionId) {
-        Optional<BidCollections> collection = collectionsRepository.findById(collectionId);
-        if(!collection.isPresent()){
-            return new ResponseEntity<>("No such item found", HttpStatus.BAD_REQUEST);
-        }
-        collectionsRepository.delete(collection.get());
-        return ResponseEntity.ok(collection.get().getCollectionName() + "with ID " + collectionId + " is deleted successfully");
-    }
+
 
 }

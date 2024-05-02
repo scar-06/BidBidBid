@@ -21,7 +21,6 @@ public class BidCollections {
 
     @Id
     @Column(name = "collections_id")
-    @JsonIgnore
     private Long id;
 
     @Size(min = 3, message = "First name must be at least 3 characters")

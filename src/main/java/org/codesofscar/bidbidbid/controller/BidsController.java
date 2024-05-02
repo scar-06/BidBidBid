@@ -38,4 +38,15 @@ public class BidsController {
     public ResponseEntity<?> updateBid(@PathVariable Long bidId,@RequestBody BidsDTO bidsDTO) {
         return ResponseEntity.ok(bidService.updateBidById(bidId, bidsDTO));
     }
+
+    @PostMapping("/addbid")
+    public ResponseEntity<String> addBid(@RequestBody BidsDTO bidsDTO) {
+        return bidService.addBidToCollection(bidsDTO);
+    }
+
+    @PostMapping("/acceptbid/{bidId}")
+    public ResponseEntity<String> acceptBid(@PathVariable Long bidId) {
+        return bidService.acceptBid(bidId);
+    }
+
 }

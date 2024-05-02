@@ -15,10 +15,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BidsDTO {
-    private BidCollections collection;
-    private Long collectionsId;
+    private Long id;
+    private Long collectionId;
     private BigDecimal price;
-    private Users user;
     private Long userId;
     private BidStatus status;
 }

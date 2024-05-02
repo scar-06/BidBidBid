@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,14 +52,14 @@ public class BidServiceImpl implements BidService {
 
     @Override
     public ResponseEntity<String> addBidToCollection(BidsDTO bidDto) {
-        Users user = userRepository.findById(bidDto.getUser().getId()).orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
-
-        if (user == null) {
-            throw new ResourceNotFoundException("Admin must be Logged In to Continue");
-        }
-        if (!user.getUserRole().equals(Roles.ADMIN)) {
-            throw new ResourceNotFoundException("You are not allowed to Add Bid To Collection");
-        }
+//        Users user = userRepository.findById(bidDto.getUser().getId()).orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
+//
+//        if (user == null) {
+//            throw new ResourceNotFoundException("Admin must be Logged In to Continue");
+//        }
+//        if (!user.getUserRole().equals(Roles.ADMIN)) {
+//            throw new ResourceNotFoundException("You are not allowed to Add Bid To Collection");
+//        }
 
         Bids bid = new ObjectMapper().convertValue(bidDto, Bids.class);
         Optional<Bids> bid1 = bidsRepository.findById(bid.getId());
@@ -71,7 +72,8 @@ public class BidServiceImpl implements BidService {
         BidCollections collection = collectionsRepository.findById(bid.getCollectionId()).
                 orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 
-        collection.setBidsInCollection(bidsToCollection);
+//        collection.setBidsInCollection(bidsToCollection);
+
 
 
         bidsRepository.save(bid);
@@ -90,14 +92,26 @@ public class BidServiceImpl implements BidService {
 
         BidCollections collection = collectionsRepository.findById(bid.get().getCollectionId())
                 .orElseThrow(() -> new ResourceNotFoundException("Collection not found"));
-        List<Bids> bidListInCollection = collection.getBidsInCollection();
 
-        for (Bids collectionBid : bidListInCollection) {
+//        for (Bids collectionBid : collection.getBidsInCollection()) {
+//            if (collectionBid.getId().equals(bid.get().getId())) {
+//                collection.getBidsInCollection().remove(collectionBid);
+//            }
+//        }
+
+//        LINE BELOW IS SAME AS "for" LOOP ABOVE:
+//        collection.getBidsInCollection().removeIf(collectionBid -> collectionBid.getId().equals(bid.get().getId()));
+
+        Iterator<Bids> iterator = collection.getBidsInCollection().iterator();
+        while (iterator.hasNext()) {
+            Bids collectionBid = iterator.next();
             if (collectionBid.getId().equals(bid.get().getId())) {
-                bidListInCollection.remove(collectionBid);
+                iterator.remove();
             }
         }
 
+
+        collectionsRepository.save(collection);
 
         bidsRepository.delete(bid.get());
         return ResponseEntity.ok( "Bid with ID " + bidId + " is deleted successfully");
@@ -106,21 +120,21 @@ public class BidServiceImpl implements BidService {
     @Override
     public ResponseEntity<String> acceptBid(Long bidId) {
 
-        Users user = userRepository.findById(bidId).orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
-
-        if (user == null) {
-            throw new ResourceNotFoundException("Admin must be Logged In to Continue");
-        }
-        if (!user.getUserRole().equals(Roles.ADMIN)) {
-            throw new ResourceNotFoundException("You are not allowed to Accept Bid");
-        }
+//        Users user = userRepository.findById(bidId).orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
+//
+//        if (user == null) {
+//            throw new ResourceNotFoundException("Admin must be Logged In to Continue");
+//        }
+//        if (!user.getUserRole().equals(Roles.ADMIN)) {
+//            throw new ResourceNotFoundException("You are not allowed to Accept Bid");
+//        }
 
         Optional<Bids> bid = bidsRepository.findById(bidId);
         if(!bid.isPresent()){
             return new ResponseEntity<>("No such item found", HttpStatus.BAD_REQUEST);
         }
 
-        if (!bid.get().getStatus().equals(BidStatus.ACCEPTED)){
+        if (bid.get().getStatus().equals(BidStatus.ACCEPTED)){
             throw new ResourceNotFoundException("Bid already accepted");
         }
 
@@ -135,6 +149,7 @@ public class BidServiceImpl implements BidService {
                 bid.get().setStatus(BidStatus.REJECTED);
             }
         }
+
 
         return new ResponseEntity<>("Bid with ID " +bid.get().getId()+" Accepted", HttpStatus.OK);
 
