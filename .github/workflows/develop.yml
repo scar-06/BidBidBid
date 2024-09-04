@@ -1,0 +1,28 @@
+name: Build and Deploy BidBidBid
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    name: Build and Deploy BidBidBid
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: "corretto"
+          java-version: 17
+
+      - name: Build the application
+        run: |
+          mvn compile
+          mvn -B package --file pom.xml
